@@ -17,7 +17,8 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace api.Controllers
 {
-    [Authorize]
+    //[Authorize]
+    [CustomAuthorize]
     [Route("api/[controller]")]
     [ApiController]
     public class NamesController : Controller
@@ -31,7 +32,7 @@ namespace api.Controllers
 
         [RequiredScope("Api.ReadWrite")]
         [Route("PostName")]
-        public async Task<IActionResult> PostName([FromBody]NameModel nameModel)
+        public IActionResult PostName([FromBody]NameModel nameModel)
         {
             Data.NamesList.Add(nameModel);
             return Ok(Data.NamesList);
@@ -84,7 +85,7 @@ namespace api.Controllers
             catch
             {
                 // return null if validation fails
-                return null;
+                return string.Empty;
             }
         }
     }
